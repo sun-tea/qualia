@@ -1,29 +1,44 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div class="app m-24">
+    <Recipe
+      v-for="recipe in recipes"
+      :title="recipe.title"
+      :ingredients="recipe.ingredients"
+      :steps="recipe.steps"
+      :key="recipe.title"
+    />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import Recipe from './components/Recipe.vue';
+let data = {
+  recipes: [
+    {
+      title: 'Okonomoyaki',
+      ingredients: ['cabbage', 'eggs', 'flour'],
+      steps: ['Cut the cabbage', 'Add eggs, water, oil, then flour'],
+    },
+  ],
+};
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
-    HelloWorld,
+    Recipe,
+  },
+  data() {
+    return data;
   },
 };
 </script>
 
 <style src="./assets/tailwind.css" />
 <style>
-#app {
+.app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
