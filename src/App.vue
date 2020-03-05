@@ -1,34 +1,37 @@
 <template>
   <div class="app m-24">
-    <Recipe
-      v-for="recipe in recipes"
-      :title="recipe.title"
-      :ingredients="recipe.ingredients"
-      :steps="recipe.steps"
-      :key="recipe.title"
-    />
+    <Recipe v-for="recipe in recipes" :recipe="recipe" :key="recipe.id" />
   </div>
 </template>
 
 <script>
+/* eslint-disable no-debugger */
+
 import Recipe from './components/Recipe.vue';
-let data = {
-  recipes: [
-    {
-      title: 'Okonomoyaki',
-      ingredients: ['cabbage', 'eggs', 'flour'],
-      steps: ['Cut the cabbage', 'Add eggs, water, oil, then flour'],
-    },
-  ],
-};
+import { FETCH_RECIPES } from './store/actions.type';
 
 export default {
   name: 'App',
   components: {
     Recipe,
   },
-  data() {
-    return data;
+  computed: {
+    recipesConfig() {
+      return {
+        ingredients: 'cabbage',
+      };
+    },
+    recipes() {
+      return this.$store.state.recipes.recipes;
+    },
+  },
+  mounted() {
+    this.fetchRecipes();
+  },
+  methods: {
+    fetchRecipes() {
+      this.$store.dispatch(FETCH_RECIPES, this.recipesConfig);
+    },
   },
 };
 </script>
