@@ -1,5 +1,6 @@
 <template>
   <div class="app m-24">
+    <Search />
     <Recipe v-for="recipe in recipes" :recipe="recipe" :key="recipe.id" />
   </div>
 </template>
@@ -8,12 +9,14 @@
 /* eslint-disable no-debugger */
 
 import Recipe from './components/Recipe.vue';
+import Search from './components/Search.vue';
 import { FETCH_RECIPES } from './store/actions.type';
 
 export default {
   name: 'App',
   components: {
     Recipe,
+    Search,
   },
   computed: {
     recipesConfig() {
@@ -26,7 +29,7 @@ export default {
     },
   },
   mounted() {
-    this.fetchRecipes();
+    // this.fetchRecipes();
   },
   methods: {
     fetchRecipes() {
