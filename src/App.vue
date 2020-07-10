@@ -1,47 +1,53 @@
 <template>
-  <div class="app m-24">
-    <Recipe v-for="recipe in recipes" :recipe="recipe" :key="recipe.id" />
+  <div class="app">
+    <div class="wrapper">
+      <Search v-on:search-recipes="fetchRecipes" />
+      <div class="recipes">
+        <Recipe v-for="recipe in recipes" :recipe="recipe" :key="recipe.id" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-/* eslint-disable no-debugger */
-
 import Recipe from './components/Recipe.vue';
+import Search from './components/Search.vue';
 import { FETCH_RECIPES } from './store/actions.type';
 
 export default {
   name: 'App',
   components: {
     Recipe,
+    Search,
   },
   computed: {
-    recipesConfig() {
-      return {
-        ingredients: 'cabbage',
-      };
-    },
     recipes() {
       return this.$store.state.recipes.recipes;
     },
   },
-  mounted() {
-    this.fetchRecipes();
-  },
   methods: {
-    fetchRecipes() {
-      this.$store.dispatch(FETCH_RECIPES, this.recipesConfig);
+    fetchRecipes(items) {
+      this.$store.dispatch(FETCH_RECIPES, items);
     },
   },
 };
 </script>
 
 <style src="./assets/tailwind.css" />
-<style>
+<style scoped>
 .app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+
+  @apply bg-orange-200;
+}
+
+.wrapper {
+  @apply p-24 flex text-center;
+}
+
+.recipes {
+  @apply flex-1 shadow-xl mx-6 bg-white rounded-lg;
 }
 </style>

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
@@ -25,8 +24,8 @@ const ApiService = {
 };
 
 export const RecipesService = {
-  get(slug) {
-    return ApiService.query('findByIngredients', slug);
+  get(resource, slug) {
+    return ApiService.query(resource, slug);
   },
 };
 
