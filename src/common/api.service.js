@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
-import { ID_TOKEN_KEY } from '@/common/jwt.service';
+import { TOKEN_SPOONACULAR } from '@/common/jwt.service';
 import { API_URL } from '@/common/config';
 
 const ApiService = {
@@ -11,13 +11,15 @@ const ApiService = {
   },
 
   query(resource, params) {
-    return Vue.axios.get(resource, { params: { apiKey: ID_TOKEN_KEY, ...params } }).catch(error => {
-      throw new Error(`[RWV] ApiService ${error}`);
-    });
+    return Vue.axios
+      .get(resource, { params: { apiKey: TOKEN_SPOONACULAR, ...params } })
+      .catch(error => {
+        throw new Error(`[RWV] ApiService ${error}`);
+      });
   },
 
   get(resource, slug = '') {
-    return Vue.axios.get(`${resource}/${slug}&apiKey=${ID_TOKEN_KEY}`).catch(error => {
+    return Vue.axios.get(`${resource}/${slug}&apiKey=${TOKEN_SPOONACULAR}`).catch(error => {
       throw new Error(`[RWV] ApiService ${error}`);
     });
   },
