@@ -1,4 +1,6 @@
-# qualia
+# hearty meals
+
+What am I going to cook today?
 
 ## Project setup
 ```
