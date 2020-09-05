@@ -25,10 +25,11 @@ export const actions = {
 
 export const mutations = {
   [SET_RECIPES](state, { results }) {
-    state.recipes = {};
-    results.forEach(recipe => {
-      state.recipes[recipe.id] = recipe;
-    });
+    state.recipes = results;
+    // state.recipes = {};
+    // results.forEach(recipe => {
+    //   state.recipes[recipe.id] = recipe;
+    // });
   },
 };
 

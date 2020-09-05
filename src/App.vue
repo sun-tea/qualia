@@ -2,8 +2,26 @@
   <div class="app">
     <div class="wrapper">
       <Search v-on:search-recipes="fetchRecipes" />
-      <div class="recipes">
-        <Recipe v-for="recipe in recipes" :recipe="recipe" :key="recipe.id" />
+      <div class="content">
+        <Pagination
+          v-if="recipesCount"
+          :current-page="currentPage"
+          :total="recipesCount"
+          :per-page="perPage"
+          @page-change="pageChangeHandler"
+          class="p-4 pb-0"
+        />
+        <div class="recipes">
+          <Recipe v-for="recipe of displayedRecipes" :recipe="recipe" :key="recipe.id" />
+        </div>
+        <Pagination
+          v-if="recipesCount"
+          :current-page="currentPage"
+          :total="recipesCount"
+          :per-page="perPage"
+          @page-change="pageChangeHandler"
+          class="p-4 pt-0"
+        />
       </div>
     </div>
   </div>
@@ -12,6 +30,7 @@
 <script>
 import Recipe from './components/Recipe.vue';
 import Search from './components/Search.vue';
+import Pagination from './components/Pagination.vue';
 import { FETCH_RECIPES } from './store/actions.type';
 
 export default {
@@ -19,15 +38,42 @@ export default {
   components: {
     Recipe,
     Search,
+    Pagination,
+  },
+  data: function () {
+    return {
+      currentPage: 1,
+      perPage: 8,
+    };
   },
   computed: {
     recipes() {
       return this.$store.state.recipes.recipes;
     },
+    displayedRecipes() {
+      const startIndex = (this.currentPage - 1) * this.perPage;
+      const endIndex = startIndex + this.perPage - 1;
+      const recipes = [];
+
+      for (let i = startIndex; i <= endIndex; i++) {
+        if (this.recipes[i]) {
+          recipes.push(this.recipes[i]);
+        } else {
+          break;
+        }
+      }
+      return recipes;
+    },
+    recipesCount() {
+      return Object.keys(this.recipes).length;
+    },
   },
   methods: {
     fetchRecipes(items) {
       this.$store.dispatch(FETCH_RECIPES, items);
+    },
+    pageChangeHandler(page) {
+      this.currentPage = page;
     },
   },
 };
@@ -47,7 +93,7 @@ export default {
   @apply p-24 flex text-center;
 }
 
-.recipes {
+.content {
   @apply flex-1 shadow-xl mx-6 bg-white rounded-lg;
 }
 </style>
