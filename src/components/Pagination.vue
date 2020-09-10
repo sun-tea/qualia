@@ -121,7 +121,7 @@ export default {
 }
 
 .pagination--button:hover {
-  @apply bg-orange-600;
+  @apply bg-orange-500;
 }
 
 .pagination--button-active {

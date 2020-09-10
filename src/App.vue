@@ -86,14 +86,24 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  @apply bg-orange-200;
+  @apply bg-orange-200 h-full;
 }
 
 .wrapper {
-  @apply p-24 flex text-center;
+  @apply flex flex-col items-stretch p-24 text-center;
 }
 
 .content {
-  @apply flex-1 shadow-xl mx-6 bg-white rounded-lg;
+  @apply mt-6 flex-1 shadow-xl bg-white rounded-lg;
+}
+
+@screen lg {
+  .content {
+    @apply inline-block;
+  }
+
+  .wrapper {
+    @apply flex-row items-start;
+  }
 }
 </style>
