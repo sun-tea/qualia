@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <div class="wrapper">
-      <Search v-on:search-recipes="fetchRecipes" />
+      <Search @search-recipes="fetchRecipes" />
       <div class="content">
         <Pagination
           v-if="recipesCount"
@@ -90,7 +90,7 @@ export default {
 }
 
 .wrapper {
-  @apply flex flex-col items-stretch p-24 text-center;
+  @apply flex flex-col items-stretch text-center p-6;
 }
 
 .content {
@@ -99,11 +99,17 @@ export default {
 
 @screen lg {
   .content {
-    @apply inline-block;
+    @apply inline-block mt-0 ml-6;
   }
 
   .wrapper {
     @apply flex-row items-start;
+  }
+}
+
+@screen md {
+  .wrapper {
+    @apply p-24;
   }
 }
 </style>

@@ -8,20 +8,25 @@
       aria-label="Search by ingredients"
       autocomplete="off"
       v-model="currentTerm"
-      v-on:keyup.enter="addSearchTerm"
+      @keyup.enter="addSearchTerm"
     />
     <div class="tags" :class="{ 'tags--empty': searchTerms.length == 0 }">
       <Tag
         v-for="(item, index) in searchTerms"
         :key="index"
-        :item="item"
-        @delete-item="deleteItemHandler"
+        :label="item"
+        :hasCloseIcon="true"
+        @delete-tag="deleteTagHandler"
+      />
+      <div style="flex-basis:  100%" />
+      <Tag
+        v-if="searchTerms.length > 1"
+        :label="'Remove all'"
+        :type="'removeAll'"
+        @delete-tag="deleteAllTagsHandler"
       />
     </div>
-    <button
-      class="submit"
-      v-on:click="$emit('search-recipes', searchTerms.toString())"
-    >Search recipes</button>
+    <button class="submit" @click="$emit('search-recipes', searchTerms.toString())">Search recipes</button>
   </div>
 </template>
 
@@ -44,8 +49,11 @@ export default {
       }
       this.currentTerm = '';
     },
-    deleteItemHandler: function (i) {
+    deleteTagHandler: function (i) {
       this.searchTerms.splice(i, 1);
+    },
+    deleteAllTagsHandler: function () {
+      this.searchTerms = [];
     },
   },
 };
@@ -77,23 +85,11 @@ export default {
 }
 
 .tags {
-  @apply pt-4 pb-2 flex flex-wrap;
+  @apply pt-3 pb-1 flex flex-wrap;
 }
 
 .tags--empty {
   @apply py-3;
-}
-
-.tag {
-  @apply p-2 mr-2 mb-2 bg-teal-300 items-center text-teal-900 leading-none inline-flex rounded-full;
-}
-
-.text {
-  @apply ml-2 mr-2 text-left flex-auto;
-}
-
-.close {
-  @apply fill-current opacity-75 h-4 w-4;
 }
 
 @screen lg {
