@@ -1,7 +1,7 @@
 module.exports = {
   theme: {
-    extend: {}
+    fill: theme => theme('colors'),
   },
   variants: {},
-  plugins: []
-}
+  plugins: [],
+};

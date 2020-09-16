@@ -9,7 +9,7 @@
           :total="recipesCount"
           :per-page="perPage"
           @page-change="pageChangeHandler"
-          class="p-4 pb-0"
+          class="p-8 pb-0"
         />
         <div class="recipes">
           <Recipe v-for="recipe of displayedRecipes" :recipe="recipe" :key="recipe.id" />
@@ -20,7 +20,7 @@
           :total="recipesCount"
           :per-page="perPage"
           @page-change="pageChangeHandler"
-          class="p-4 pt-0"
+          class="p-8 pt-0"
         />
       </div>
     </div>
@@ -40,7 +40,7 @@ export default {
     Search,
     Pagination,
   },
-  data: function () {
+  data: function() {
     return {
       currentPage: 1,
       perPage: 8,
@@ -99,7 +99,7 @@ export default {
 
 @screen lg {
   .content {
-    @apply inline-block mt-0 ml-6;
+    @apply inline-block mt-0 ml-10;
   }
 
   .wrapper {

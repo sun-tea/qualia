@@ -1,11 +1,13 @@
 <template>
-  <div :class="{'tag': true, 'tag--red':(type === 'removeAll') }" @click="onTagClick">
+  <div :class="{ tag: true, 'tag--red': type === 'removeAll' }" @click="onTagClick">
     <span class="text">{{ label }}</span>
     <IconBase
-      class="close"
-      name="close"
+      class="tag__delete"
+      name="delete-tag"
       role="button"
       v-if="hasCloseIcon"
+      :height="'15px'"
+      :width="'15px'"
       @svg-click-handler="onDeleteTag"
     >
       <IconCross />
@@ -39,10 +41,10 @@ export default {
     },
   },
   methods: {
-    onDeleteTag: function () {
+    onDeleteTag: function() {
       this.$emit('delete-tag', this.$vnode.key);
     },
-    onTagClick: function () {
+    onTagClick: function() {
       if (this.type === 'removeAll') {
         this.$emit('delete-tag', this.$vnode.key);
       }
@@ -53,7 +55,7 @@ export default {
 
 <style scoped>
 .tag {
-  @apply p-2 mr-2 mb-2 bg-teal-300 items-center text-teal-900 leading-none inline-flex rounded-full;
+  @apply p-3 mr-4 mb-4 bg-teal-300 items-center text-teal-900 leading-none inline-flex rounded-full;
 }
 
 .tag--red {
@@ -64,7 +66,7 @@ export default {
   @apply ml-2 mr-2 text-left flex-auto;
 }
 
-.close {
-  @apply fill-current opacity-75 h-4 w-4;
+.tag__delete {
+  @apply opacity-75 mr-2;
 }
 </style>

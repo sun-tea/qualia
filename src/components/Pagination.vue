@@ -1,55 +1,82 @@
 <template>
   <ul class="flex justify-center">
     <li :v-if="maxVisibleButtons > 2">
-      <button
-        type="button"
-        class="pagination--button"
-        @click="onPageChange(1)"
-        :disabled="isInFirstPage"
-      >First</button>
+      <IconBase
+        name="first"
+        role="button"
+        class="pagination__arrow"
+        :height="'100%'"
+        :color="'fill-orange-400'"
+        @svg-click-handler="isInFirstPage ? null : onPageChange(1)"
+      >
+        <IconFirst />
+      </IconBase>
     </li>
     <li :v-if="maxVisibleButtons > 2">
-      <button
-        type="button"
-        class="pagination--button"
-        @click="onPageChange(currentPage - 1)"
-        :disabled="isInFirstPage"
-      >Prev</button>
+      <IconBase
+        name="previous"
+        role="button"
+        class="pagination__arrow"
+        :height="'100%'"
+        :color="'fill-orange-400'"
+        @svg-click-handler="isInFirstPage ? null : onPageChange(currentPage - 1)"
+      >
+        <IconPrevious />
+      </IconBase>
     </li>
     <li v-for="page in pages" :key="page.name">
       <button
         type="button"
-        class="pagination--button"
         @click="onPageChange(page.name)"
         :disabled="page.isDisabled"
-        :class="{ 'pagination--button-active': page.isDisabled }"
-      >{{page.name}}</button>
+        :class="{ pagination__button: true, 'pagination__button--active': page.isDisabled }"
+      >
+        {{ page.name }}
+      </button>
     </li>
     <li :v-if="maxVisibleButtons > 2">
-      <button
-        type="button"
-        class="pagination--button"
-        @click="onPageChange(currentPage + 1)"
-        :disabled="isInLastPage"
-      >Next</button>
+      <IconBase
+        name="next"
+        role="button"
+        class="pagination__arrow"
+        :height="'100%'"
+        :color="'fill-orange-400'"
+        @svg-click-handler="isInLastPage ? null : onPageChange(currentPage + 1)"
+      >
+        <IconNext />
+      </IconBase>
     </li>
     <li :v-if="maxVisibleButtons > 2">
-      <button
-        type="button"
-        class="pagination--button"
-        @click="onPageChange(totalPages)"
-        :disabled="isInLastPage"
-      >Last</button>
+      <IconBase
+        name="last"
+        role="button"
+        class="pagination__arrow"
+        :height="'100%'"
+        :color="'fill-orange-400'"
+        @svg-click-handler="isInLastPage ? null : onPageChange(totalPages)"
+      >
+        <IconLast />
+      </IconBase>
     </li>
   </ul>
 </template>
 
 <script>
-/* eslint-disable no-debugger */
-/* eslint-disable no-console */
+import IconBase from './IconBase.vue';
+import IconFirst from './IconFirst.vue';
+import IconLast from './IconLast.vue';
+import IconNext from './IconNext.vue';
+import IconPrevious from './IconPrevious.vue';
 
 export default {
   name: 'Pagination',
+  components: {
+    IconBase,
+    IconFirst,
+    IconLast,
+    IconNext,
+    IconPrevious,
+  },
   props: {
     currentPage: {
       type: Number,
@@ -116,15 +143,19 @@ export default {
 </script>
 
 <style scoped>
-.pagination--button {
-  @apply inline-block m-2 py-1 px-3 rounded bg-orange-400 text-white;
+.pagination__button {
+  @apply inline-block m-2 h-12 w-12 rounded bg-orange-400 text-white;
 }
 
-.pagination--button:hover {
+.pagination__button:hover {
   @apply bg-orange-500;
 }
 
-.pagination--button-active {
+.pagination__button--active {
   @apply bg-orange-600 text-white;
+}
+
+.pagination__arrow {
+  @apply h-full mx-4;
 }
 </style>

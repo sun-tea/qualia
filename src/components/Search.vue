@@ -26,7 +26,9 @@
         @delete-tag="deleteAllTagsHandler"
       />
     </div>
-    <button class="submit" @click="$emit('search-recipes', searchTerms.toString())">Search recipes</button>
+    <button class="submit" @click="$emit('search-recipes', searchTerms.toString())">
+      Search recipes
+    </button>
   </div>
 </template>
 
@@ -43,16 +45,16 @@ export default {
     currentTerm: '',
   }),
   methods: {
-    addSearchTerm: function () {
+    addSearchTerm: function() {
       if (!!this.currentTerm && !this.searchTerms.includes(this.currentTerm)) {
         this.searchTerms.push(this.currentTerm);
       }
       this.currentTerm = '';
     },
-    deleteTagHandler: function (i) {
+    deleteTagHandler: function(i) {
       this.searchTerms.splice(i, 1);
     },
-    deleteAllTagsHandler: function () {
+    deleteAllTagsHandler: function() {
       this.searchTerms = [];
     },
   },
@@ -61,11 +63,11 @@ export default {
 
 <style scoped>
 .search__wrapper {
-  @apply flex flex-col p-6 bg-white rounded-lg shadow-xl;
+  @apply flex flex-col p-8 bg-white rounded-lg shadow-xl;
 }
 
 .search {
-  @apply rounded-lg border border-gray-300 py-2 px-3;
+  @apply rounded-lg border border-gray-300 p-4;
 }
 
 .search:focus {
@@ -77,7 +79,7 @@ export default {
 }
 
 .submit {
-  @apply bg-teal-500 text-white font-bold py-2 px-4 rounded;
+  @apply bg-teal-500 text-white font-bold p-4 rounded;
 }
 
 .submit:hover {
@@ -85,16 +87,16 @@ export default {
 }
 
 .tags {
-  @apply pt-3 pb-1 flex flex-wrap;
+  @apply pt-5 flex flex-wrap;
 }
 
 .tags--empty {
-  @apply py-3;
+  @apply py-4;
 }
 
 @screen lg {
   .search__wrapper {
-    width: 20rem;
+    width: 40rem;
   }
 }
 </style>
