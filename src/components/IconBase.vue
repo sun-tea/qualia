@@ -6,10 +6,11 @@
     viewBox="0 0 20 20"
     :aria-labelledby="name"
     :role="role"
+    class="m-auto"
     @click="onSvgClick"
   >
     <title :id="name" lang="en">{{ name }} icon</title>
-    <g :fill="color">
+    <g :class="color">
       <slot />
     </g>
   </svg>
@@ -21,7 +22,7 @@ export default {
   props: {
     color: {
       type: String,
-      default: 'currentColor',
+      default: 'fill-current',
     },
     height: {
       type: [Number, String],
@@ -41,7 +42,7 @@ export default {
     },
   },
   methods: {
-    onSvgClick: function () {
+    onSvgClick: function() {
       this.$emit('svg-click-handler', this.$vnode.key);
     },
   },
