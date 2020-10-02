@@ -1,10 +1,16 @@
 import Vue from 'vue';
 import VueMq from 'vue-mq';
-import App from './App.vue';
+import RecipeSearch from './RecipeSearch.vue';
 import store from './store';
 import ApiService from './common/api.service';
 
 Vue.config.productionTip = false;
+
+const routes = {
+  '/': RecipeSearch,
+};
+
+const NotFound = { template: '<p>Page not found</p>' };
 
 ApiService.init();
 
@@ -19,5 +25,16 @@ Vue.use(VueMq, {
 
 new Vue({
   store,
-  render: h => h(App),
-}).$mount('#app');
+  el: '#app',
+  data: {
+    currentRoute: window.location.pathname,
+  },
+  computed: {
+    ViewComponent() {
+      return routes[this.currentRoute] || NotFound;
+    },
+  },
+  render(h) {
+    return h(this.ViewComponent);
+  },
+});

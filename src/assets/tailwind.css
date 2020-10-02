@@ -9,3 +9,11 @@ html {
 body {
   font-size: 1.6rem;
 }
+
+a {
+  @apply text-teal-600 underline;
+}
+
+a:hover {
+  @apply text-teal-500;
+}

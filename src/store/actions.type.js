@@ -1,1 +1,1 @@
-export const FETCH_RECIPES = 'fetchRecipes';
+export const GET_RECIPES_BY_INGREDIENTS = 'getRecipesByIngredients';

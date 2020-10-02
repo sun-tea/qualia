@@ -1,16 +1,21 @@
 <template>
   <div class="search__wrapper">
-    <input
-      type="search"
-      class="search"
-      id="search"
-      placeholder="Search by ingredients"
-      aria-label="Search by ingredients"
-      autocomplete="off"
-      v-model="currentTerm"
-      @keyup.enter="addSearchTerm"
-    />
-    <div class="tags" :class="{ 'tags--empty': searchTerms.length == 0 }">
+    <div class="flex items-center">
+      <input
+        type="search"
+        class="search__input"
+        id="search"
+        placeholder="Add an ingredient and hit enter"
+        aria-label="Search by ingredients"
+        autocomplete="off"
+        v-model="currentTerm"
+        @keyup.enter="addSearchTerm"
+      />
+      <button class="search__button-ingredient" type="button" @click="addSearchTerm">
+        Add
+      </button>
+    </div>
+    <div class="search__tags" :class="{ 'search__tags--empty': searchTerms.length == 0 }">
       <Tag
         v-for="(item, index) in searchTerms"
         :key="index"
@@ -26,7 +31,7 @@
         @delete-tag="deleteAllTagsHandler"
       />
     </div>
-    <button class="submit" @click="$emit('search-recipes', searchTerms.toString())">
+    <button class="search__submit" @click="$emit('search-recipes', searchTerms.toString())">
       Search recipes
     </button>
   </div>
@@ -63,39 +68,48 @@ export default {
 
 <style scoped>
 .search__wrapper {
-  @apply flex flex-col p-8 bg-white rounded-lg shadow-xl;
+  @apply flex flex-col p-8 bg-white rounded-lg;
 }
 
-.search {
-  @apply rounded-lg border border-gray-300 p-4;
+.search__input {
+  @apply w-full p-4 rounded-l-lg border border-gray-300 border-r-0;
 }
 
-.search:focus {
-  @apply border-blue-500 outline-none;
+.search__input:focus {
+  @apply border-teal-500 outline-none;
 }
 
-.search::placeholder {
+.search__input::placeholder {
   @apply text-gray-500;
 }
 
-.submit {
+.search__button-ingredient {
+  @apply bg-teal-500 text-white font-bold p-4 border border-teal-500 rounded-r-lg;
+}
+
+.search__button-ingredient:hover {
+  @apply bg-teal-600 border-teal-600;
+}
+
+.search__submit {
   @apply bg-teal-500 text-white font-bold p-4 rounded;
 }
 
-.submit:hover {
+.search__submit:hover {
   @apply bg-teal-600;
 }
 
-.tags {
+.search__tags {
   @apply pt-5 flex flex-wrap;
 }
 
-.tags--empty {
+.search__tags--empty {
   @apply py-4;
 }
 
 @screen lg {
   .search__wrapper {
+    @apply shadow-xl;
     width: 40rem;
   }
 }

@@ -1,2 +1,2 @@
-export const FETCH_START = 'setLoading';
+export const SET_IS_LOADING = 'setIsLoading';
 export const SET_RECIPES = 'setRecipes';
